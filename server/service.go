@@ -96,7 +96,9 @@ type Service struct {
 	cfg config.ServerCommonConf
 }
 
+//生成一个服务
 func NewService(cfg config.ServerCommonConf) (svr *Service, err error) {
+	//生成tls配置信息
 	tlsConfig, err := transport.NewServerTLSConfig(
 		cfg.TLSCertFile,
 		cfg.TLSKeyFile,
@@ -105,6 +107,7 @@ func NewService(cfg config.ServerCommonConf) (svr *Service, err error) {
 		return
 	}
 
+	//服务对象
 	svr = &Service{
 		ctlManager:    NewControlManager(),
 		pxyManager:    proxy.NewManager(),

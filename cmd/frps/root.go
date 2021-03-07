@@ -102,6 +102,7 @@ var rootCmd = &cobra.Command{
 			return nil
 		}
 
+		//各项配置解析
 		var cfg config.ServerCommonConf
 		var err error
 		if cfgFile != "" {
@@ -120,6 +121,7 @@ var rootCmd = &cobra.Command{
 			return err
 		}
 
+		//根据解析的配置信息，启动服务
 		err = runServer(cfg)
 		if err != nil {
 			fmt.Println(err)
@@ -202,6 +204,7 @@ func parseServerCommonCfgFromCmd() (cfg config.ServerCommonConf, err error) {
 
 func runServer(cfg config.ServerCommonConf) (err error) {
 	log.InitLog(cfg.LogWay, cfg.LogFile, cfg.LogLevel, cfg.LogMaxDays, cfg.DisableLogColor)
+	//将相关配置信息包装成服务对象，最后启动
 	svr, err := server.NewService(cfg)
 	if err != nil {
 		return err
